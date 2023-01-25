@@ -32,6 +32,13 @@ function TabPanel(props) {
 	);
 }
 
+function tabinit(index) {
+	return {
+	  id: `simple-tab-${index}`,
+	  'aria-controls': `simple-tabpanel-${index}`,
+	};
+}
+
 const theme = createTheme({
 	palette: {
 		primary: red,
@@ -72,8 +79,8 @@ function LoginPage() {
 							variant="fullWidth"
 							centered
 						>
-							<Tab label="Login" />
-							<Tab label="Sign Up" />
+							<Tab label="Login" {...tabinit(0)} />
+							<Tab label="Sign Up" {...tabinit(1)} />
 						</Tabs>
 					</Box>
 					<TabPanel value={value} index={0}>
