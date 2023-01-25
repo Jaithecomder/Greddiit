@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/greddiit/static/css/main.e6c13ad2.css",
-    "main.js": "/greddiit/static/js/main.f811e09c.js",
+    "main.js": "/greddiit/static/js/main.27deeda2.js",
     "static/js/787.a9120f67.chunk.js": "/greddiit/static/js/787.a9120f67.chunk.js",
     "index.html": "/greddiit/index.html",
     "main.e6c13ad2.css.map": "/greddiit/static/css/main.e6c13ad2.css.map",
-    "main.f811e09c.js.map": "/greddiit/static/js/main.f811e09c.js.map",
+    "main.27deeda2.js.map": "/greddiit/static/js/main.27deeda2.js.map",
     "787.a9120f67.chunk.js.map": "/greddiit/static/js/787.a9120f67.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e6c13ad2.css",
-    "static/js/main.f811e09c.js"
+    "static/js/main.27deeda2.js"
   ]
 }
