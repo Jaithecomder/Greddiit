@@ -12,7 +12,7 @@ import Logo from  '../Logo.png'
 function TopBar() {
 	const navigate = useNavigate();
     const Logout = (event) => {
-		localStorage.removeItem("email");
+		console.log( localStorage.getItem('isLoggedIn') );
 		navigate("/");
 	}
 

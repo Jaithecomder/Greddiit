@@ -30,7 +30,7 @@ function TabPanel(props) {
 		>
 			{value === index && (
 				<Box sx={{ p: 3 }}>
-					<Typography>{children}</Typography>
+					<Typography component="span">{children}</Typography>
 				</Box>
 			)}
 		</div>
@@ -59,19 +59,6 @@ function ProfilePage() {
 
     const navigate = useNavigate();
 
-    React.useEffect (() => {
-        if(!localStorage.getItem("email")) {
-            navigate("/");
-        }
-    });
-
-    if(!localStorage.getItem("email")) {
-        return (
-            <div>
-                Loading...
-            </div>
-        );
-    }
     return (
         <ThemeProvider theme={theme}>
             <TopBar />

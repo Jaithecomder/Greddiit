@@ -6,21 +6,54 @@ import TextField from '@mui/material/TextField';
 import { useNavigate } from 'react-router-dom';
 import { Login } from '@mui/icons-material';
 
+const initRegister = {
+	firstName: "",
+	lastName: "",
+	email: "",
+	password: "",
+	location: "",
+	occupation: "",
+	picture: "",
+  };
+  
+  const initLogin = {
+	email: "",
+	password: "",
+  };
+
 function LoginForm() {
 	const navigate = useNavigate();
 	const [email, setEmail] = React.useState("");
 	const [password, setPassword] = React.useState("");
 
-	const handleSubmit = (event) => {
+	const handleSubmit = async (event) => {
 		event.preventDefault();
-		const data = new FormData(event.currentTarget);
-		console.log({
-		  	email: data.get('email'),
-		  	password: data.get('password'),
-		});
-		if(data.get('email') === "admin" && data.get('password') === "admin") {
-			localStorage.setItem("email", "admin");
-			navigate("/profile");
+		const formData = new FormData(event.currentTarget);
+		const data = {};
+
+		for(let [key, value] of formData.entries()) {
+			data[key] = value;
+		}
+
+		const loginResponse = await fetch("/api/auth/login", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify(data),
+    	});
+
+		if ( loginResponse.ok || loginResponse.status == 304 ){
+			const loggedIn = await loginResponse.json();
+			console.log(loggedIn);
+			
+			if(loggedIn) {
+				const token = loggedIn.token;
+				const user = loggedIn.user;
+				localStorage.setItem('isLoggedIn', token);
+				localStorage.setItem('user', user);
+				navigate("/profile");
+			}else{
+				navigate("/");
+			}
 		}
 	};
 

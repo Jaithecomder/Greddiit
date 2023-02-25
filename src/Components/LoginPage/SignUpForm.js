@@ -5,14 +5,36 @@ import Grid from '@mui/material/Unstable_Grid2';
 import TextField from '@mui/material/TextField';
 import { PersonAdd } from '@mui/icons-material';
 
-function SignUpForm() {
-	const [fname, setFname] = React.useState("");
-	const [lname, setLname] = React.useState("");
-	const [uname, setUname] = React.useState("");
+const SignUpForm = ({tabSwitch}) => {
+	const [firstName, setFname] = React.useState("");
+	const [lastName, setLname] = React.useState("");
+	const [userName, setUname] = React.useState("");
 	const [age, setAge] = React.useState(0);
-	const [pno, setPno] = React.useState("");
+	const [phoneNo, setPno] = React.useState("");
 	const [email, setEmail] = React.useState("");
 	const [password, setPassword] = React.useState("");
+
+	const handleSubmit = async (event) => {
+		event.preventDefault();
+		const formData = new FormData(event.currentTarget);
+		const data = {};
+
+		for(let [key, value] of formData.entries()) {
+			data[key] = value;
+		}
+
+		const signupResponse = await fetch("/api/auth/signup", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify(data),
+    	});
+
+		const userCreated = await signupResponse.json();
+		console.log(userCreated);
+		if(userCreated) {
+			tabSwitch(0);
+		}
+	};
 
 	const handleFname = (event) => {
 		setFname(event.target.value);
@@ -43,7 +65,7 @@ function SignUpForm() {
 	};
 
 	return (
-		<Grid container>
+		<Grid container component="form" onSubmit={handleSubmit} noValidate>
 			<Grid xs={12} display="flex" justifyContent="center" alignItems="center">
 				<Avatar sx={{ bgcolor: 'primary.main' }}>
 					<PersonAdd />
@@ -54,12 +76,12 @@ function SignUpForm() {
 					variant="outlined"
 					margin="normal"
 					fullWidth
-					requiredEmail
-					id="fname"
+					required
+					id="firstName"
 					label="First Name"
-					name="fname"
+					name="firstName"
 					onChange={handleFname}
-					value={fname}
+					value={firstName}
 				/>
 			</Grid>
 			<Grid xs={6}>
@@ -68,11 +90,11 @@ function SignUpForm() {
 					margin="normal"
 					fullWidth
 					required
-					id="lname"
+					id="lastName"
 					label="Last Name"
-					name="lname"
+					name="lastName"
 					onChange={handleLname}
-					value={lname}
+					value={lastName}
 				/>
 			</Grid>
 			<Grid xs={12}>
@@ -81,11 +103,11 @@ function SignUpForm() {
 					margin="normal"
 					fullWidth
 					required
-					id="uname"
+					id="userName"
 					label="User Name"
-					name="uname"
+					name="userName"
 					onChange={handleUname}
-					value={uname}
+					value={userName}
 				/>
 			</Grid>
 			<Grid xs={6}>
@@ -108,11 +130,11 @@ function SignUpForm() {
 					margin="normal"
 					fullWidth
 					required
-					id="pno"
+					id="phoneNo"
 					label="Phone Number"
-					name="pno"
+					name="phoneNo"
 					onChange={handlePno}
-					value={pno}
+					value={phoneNo}
 				/>
 			</Grid>
 			<Grid xs={12}>
@@ -149,7 +171,7 @@ function SignUpForm() {
 					required
 					variant="contained"
 					color="primary"
-					disabled= {!(fname && lname && uname && age && pno && email && password)}
+					disabled= {!(firstName && lastName && userName && age && phoneNo && email && password)}
 				>
 					Sign Up
 				</Button>

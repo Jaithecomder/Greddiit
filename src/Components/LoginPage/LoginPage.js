@@ -25,7 +25,7 @@ function TabPanel(props) {
 		>
 			{value === index && (
 				<Box sx={{ p: 3 }}>
-					<Typography>{children}</Typography>
+					<Typography component={"span"}>{children}</Typography>
 				</Box>
 			)}
 		</div>
@@ -87,7 +87,7 @@ function LoginPage() {
 						<LoginForm />
 					</TabPanel>
 					<TabPanel value={value} index={1}>
-						<SignUpForm />
+						<SignUpForm tabSwitch={setValue}/>
 					</TabPanel>
 				</Container>
 			</ThemeProvider>
